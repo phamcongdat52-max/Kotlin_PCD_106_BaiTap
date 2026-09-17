@@ -3,94 +3,164 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:orientation="vertical"
+    android:background="#1B2631"
     android:gravity="center"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:textAlignment="center"
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardProfile"
+    tools:context=".MainActivity">
 
-        android:layout_width="match_parent"
+    <!-- TIÊU ĐỀ PROFILE -->
+    <TextView
+        android:id="@+id/txtProfile"
+        android:layout_width="391dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="start"
+        android:text="Profile"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp">
+    <!-- CARD HỒ SƠ SINH VIÊN -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#243342"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="434dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="24dp">
-
+            <!-- AVATAR -->
             <ImageView
-                android:id="@+id/imgAvatar"
+                android:id="@+id/imageView"
+                android:layout_width="137dp"
+                android:layout_height="155dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#FFFFFF"
+                android:textAlignment="center"
+                app:srcCompat="@drawable/avater_student" />
 
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-
-                android:contentDescription="Ảnh đại diện"
-                android:src="@drawable/backiee"
-                tools:srcCompat="@tools:sample/avatars[2]" />
-
+            <!-- TÊN -->
             <TextView
-                android:id="@+id/tvName"
-
-                android:layout_width="wrap_content"
+                android:id="@+id/txtTen"
+                android:layout_width="306dp"
                 android:layout_height="wrap_content"
-
-                android:layout_marginTop="12dp"
-                android:textSize="22sp"
-
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <!-- MSSV + LỚP -->
             <TextView
-                android:id="@+id/tvStudentId"
-
-                android:layout_width="0dp"
+                android:id="@+id/txtMaSinhVien"
+                android:layout_width="257dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="normal" />
 
-                android:layout_marginTop="4dp" />
-
+            <!-- SỐ ĐIỆN THOẠI -->
             <TextView
-                android:id="@+id/tvGpaBadge"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="12dp"
-                android:textSize="18sp"
-
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/edtNewGpa"
-
+                android:id="@+id/txtSoDienThoai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
-                android:layout_marginTop="16dp"
+            <!-- VÒNG TRÒN GPA -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardGpa"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="75dp">
 
+                <TextView
+                    android:id="@+id/txtDiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="#090909"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtGPA"
+                    android:layout_width="138dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- NHẬP GPA -->
+            <EditText
+                android:id="@+id/edtGPA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:ems="10"
                 android:hint="Nhập GPA mới (0.0 - 4.0)"
                 android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:textColor="#FFFFFF" />
 
-                android:minHeight="48dp" />
-
+            <!-- NÚT CẬP NHẬT -->
             <Button
-                android:id="@+id/btnUpdateGpa"
+                android:id="@+id/btnUpdate"
+                android:layout_width="323dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="18dp"
+                android:text="Cập nhật thông tin" />
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <!-- NÚT GỌI ĐIỆN -->
+            <Button
+                android:id="@+id/btnCall"
+                android:layout_width="323dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Gọi điện" />
 
-                android:layout_marginTop="12dp"
-
-                android:text="Cập Nhật Thông Tin" />
+            <!-- NÚT XÓA HỒ SƠ -->
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="323dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Xóa hồ sơ" />
 
         </LinearLayout>
 

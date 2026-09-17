@@ -1,9 +1,10 @@
-package com.example.sudentcard.utils
+package com.example.studentprofilecard.utils
 
 import android.content.Context
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
-fun Double.toAcademicRanking(): String = when {
+fun Double.XepLoaiHocLuc(): String = when {
     this >= 3.6 -> "Xuất sắc"
     this >= 3.2 -> "Giỏi"
     this >= 2.5 -> "Khá"
@@ -11,5 +12,24 @@ fun Double.toAcademicRanking(): String = when {
 }
 
 fun Context.toast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    Toast.makeText(
+        this,
+        message,
+        Toast.LENGTH_SHORT
+    ).show()
+}
+
+fun Context.showConfirmDialog(
+    title: String,
+    message: String,
+    onConfirm: () -> Unit
+) {
+    AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton("Đồng ý") { _, _ ->
+            onConfirm()
+        }
+        .setNegativeButton("Hủy", null)
+        .show()
 }

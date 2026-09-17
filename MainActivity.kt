@@ -1,48 +1,44 @@
-package com.example.sudentcard
+package com.example.studentprofilecard
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sudentcard.databinding.ActivityMainBinding
-import com.example.sudentcard.model.Student
-import com.example.sudentcard.utils.toAcademicRanking
-import com.example.sudentcard.utils.toast
+import com.example.studentprofilecard.databinding.ActivityMainBinding
+import com.example.studentprofilecard.model.Student
+import com.example.studentprofilecard.utils.XepLoaiHocLuc
+import com.example.studentprofilecard.utils.showConfirmDialog
+import com.example.studentprofilecard.utils.toast
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var currentStudent = Student(
-        id = "22505120005",
-        name = "Nguyen Van An",
-        className = "DD2026",
-        email = "anv@ute.udn.vn",
-        gpa = 3.8
+    private var std = Student(
+        id = "2415053122106",
+        name = "Phạm Công Đạt",
+        className = "24T1",
+        email = "dat@gmail.com",
+        phone = "0385830142",
+        gpa = 3.2
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Khởi tạo ViewBinding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Hiển thị dữ liệu sinh viên ban đầu
-        bindStudentData(currentStudent)
+        bindStudentData(std)
 
-        // Xử lý khi bấm nút Cập nhật GPA
-        binding.btnUpdateGpa.setOnClickListener {
+        binding.btnUpdate.setOnClickListener {
 
-            val inputStr = binding.edtNewGpa
-                .text
-                .toString()
-                .trim()
+            val inputStr = binding.edtGPA.text.toString().trim()
+            val newGPA = inputStr.toDoubleOrNull()
 
-            val newGpa = inputStr.toDoubleOrNull()
+            if (newGPA == null || newGPA < 0.0 || newGPA > 4.0) {
 
-            // Kiểm tra GPA
-            if (newGpa == null || newGpa !in 0.0..4.0) {
-
-                binding.edtNewGpa.error =
+                binding.edtGPA.error =
                     "Vui lòng nhập GPA hợp lệ (0.0 - 4.0)"
 
                 toast("Điểm GPA không hợp lệ!")
@@ -50,33 +46,56 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Cập nhật Student
-            currentStudent = currentStudent.copy(
-                gpa = newGpa
+            std = std.copy(
+                gpa = newGPA
             )
 
-            // Hiển thị lại dữ liệu mới
-            bindStudentData(currentStudent)
+            bindStudentData(std)
 
             toast("Cập nhật điểm thành công!")
         }
-    }
 
-    // Hàm đưa dữ liệu Student lên giao diện
-    private fun bindStudentData(student: Student) {
+        binding.btnCall.setOnClickListener {
+
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:${std.phone}")
+            }
+
+            startActivity(intent)
+        }
+        binding.btnDelete.setOnClickListener {
+
+            showConfirmDialog(
+                title = "Xác nhận xóa",
+                message = "Bạn có chắc chắn muốn xóa hồ sơ này không?"
+            ) {
+
+                binding.cardView.visibility = android.view.View.GONE
+
+                toast("Đã xóa hồ sơ!")
+            }
+        }
+    }
+    private fun bindStudentData(std: Student) {
 
         with(binding) {
 
-            tvName.text = student.name
+            txtTen.text = std.name
 
-            tvStudentId.text =
-                "MSSV: ${student.id} • Lớp: ${student.className}"
+            txtMaSinhVien.text =
+                "MSV: ${std.id}  Lớp: ${std.className}"
 
-            tvGpaBadge.text =
-                "${student.gpa} GPA (${student.gpa.toAcademicRanking()})"
+            txtSoDienThoai.text =
+                "SĐT: ${std.phone}"
 
-            edtNewGpa.setText(
-                student.gpa.toString()
+            txtDiem.text =
+                "${std.gpa} GPA"
+
+            txtGPA.text =
+                "(${std.gpa.XepLoaiHocLuc()})"
+
+            edtGPA.setText(
+                std.gpa.toString()
             )
         }
     }
